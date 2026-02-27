@@ -15,7 +15,13 @@ if not os.path.exists(data_path):
     st.error(f"Файл данных не найден по пути: {data_path}")
     st.stop()
 
-df = pd.read_csv(data_path)
+#df = pd.read_csv(data_path)
+sheet_url = "https://docs.google.com/spreadsheets/d/1PiqXsG8lGjsU1aqWWUdqYkI90uCtTsYQlg6bfc8-_YU/edit?usp=sharing"
+# Берем всё, что идет до /edit, и добавляем команду экспорта
+csv_url = sheet_url.split('/edit')[0] + '/export?format=csv'
+
+df = pd.read_csv(csv_url)
+
 # Преобразуем дату
 df['Дата'] = pd.to_datetime(df['Дата'])
 last_date = df['Дата'].max()
